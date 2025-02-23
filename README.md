@@ -7,6 +7,7 @@ who provided me with working code for this board.
 The discussion that helped me get yoRadio working can be seen [here.](https://github.com/e2002/yoradio/issues/105)
 
 Here I also received the working code with the working graphics driver, with the working touchscreen and with the DAC set correctly.
+
 For correct operation you must use:
 - AsyncTCP version 1.1.3
 - ESP Async Webserver 2.9.0
