@@ -1,5 +1,3 @@
-DOCUMENT IN PROGRESS...
-
 # yoRadio MOD for GUITION JC4827W543C.
 
 This project is based on the original yoRadio project which you can find [here](https://github.com/e2002/yoradio) and based on the modifications made to this project to adapt it for the NV3041A display with which the original yoRadio project is not compatible.
