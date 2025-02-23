@@ -30,4 +30,17 @@ I changed the boot logo to a custom one.
 
 ![ver2 2](https://github.com/user-attachments/assets/ea266052-0179-47a4-a38c-c418438a7dc8)
 
+It is recommended for those who want to make a yoRadio and who do not have a minimum of electrical knowledge, because this board contains everything you need to make a yoRadio at home.
+
+You do not need to solder anything, add anything.
+Just upload the code to the microcontroller and connect a speaker to the audio output of the board.
+
+Attention! The audio output has the smaller connector! (SH 1.0)
+The connector has 2P and I bought it from here: https://www.aliexpress.com/item/32921127444.html
+This connector is perfect for audio output.
+
+The display has beautiful colors and wide viewing angles.
+The capacitive touchscreen is extremely responsive.
+The sound on the audio output is good.
+
 In the next few days I will make a video showing how I uploaded the firmware to the microcontroller and how it works.
