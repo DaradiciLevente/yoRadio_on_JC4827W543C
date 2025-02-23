@@ -24,4 +24,8 @@ After the changes, I managed to display everything necessary with the default fo
 
 I bought the microcontroller from [here](https://www.aliexpress.com/item/1005006729377800.html) the version with capacitive touchscreen.
 
+I changed the boot logo to a custom one.
 
+![ver2 2](https://github.com/user-attachments/assets/ea266052-0179-47a4-a38c-c418438a7dc8)
+
+In the next few days I will make a video showing how I uploaded the firmware to the microcontroller and how it works.
