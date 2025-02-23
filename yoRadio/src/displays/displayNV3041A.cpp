@@ -102,7 +102,7 @@ void DspCore::_clockDate(){
   if(_olddateleft>0)
     dsp.fillRect(_olddateleft,  clockTop+79, _olddatewidth, CHARHEIGHT*2, config.theme.background);
   setTextColor(config.theme.date, config.theme.background);
-  setCursor(_dateleft, clockTop+80);
+  setCursor(_dateleft+32, clockTop+78);
   setTextSize(2);
   print(_dateBuf);                                            /* print date */
   strlcpy(_oldDateBuf, _dateBuf, sizeof(_dateBuf));
@@ -122,9 +122,9 @@ void DspCore::_clockTime(){
   setFont(NULL); // Folosește fontul implicit
   
   if(CLOCKFONT_MONO) {
-    setCursor(_timeleft, clockTop);
-    setTextColor(config.theme.clockbg, config.theme.background);
-    print("88:88");
+    //setCursor(_timeleft, clockTop);
+    //(config.theme.clockbg, config.theme.background);
+    //print("88:88");
   }
   setTextColor(config.theme.clock, config.theme.background);
   setCursor(_timeleft, clockTop);

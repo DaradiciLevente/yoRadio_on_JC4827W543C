@@ -45,7 +45,7 @@ const WidgetConfig bitrateConf    PROGMEM = { 6, 62, 2, WA_RIGHT };
 const WidgetConfig voltxtConf     PROGMEM = { 0, DSP_HEIGHT-38, 2, WA_CENTER };
 const WidgetConfig  iptxtConf     PROGMEM = { TFT_FRAMEWDT, DSP_HEIGHT-38, 2, WA_LEFT };
 //const WidgetConfig   rssiConf     PROGMEM = { TFT_FRAMEWDT, DSP_HEIGHT-38-6, 3, WA_RIGHT };
-const WidgetConfig   rssiConf     PROGMEM = { TFT_FRAMEWDT+10, DSP_HEIGHT-38-2, 2, WA_RIGHT };
+const WidgetConfig   rssiConf     PROGMEM = { TFT_FRAMEWDT, DSP_HEIGHT-38, 2, WA_RIGHT };
 const WidgetConfig numConf        PROGMEM = { 0, 170, 70, WA_CENTER };
 const WidgetConfig apNameConf     PROGMEM = { TFT_FRAMEWDT, 88, 3, WA_CENTER };
 const WidgetConfig apName2Conf    PROGMEM = { TFT_FRAMEWDT, 120, 3, WA_CENTER };
@@ -61,7 +61,7 @@ const ProgressConfig bootPrgConf  PROGMEM = { 90, 14, 4 };
 const BitrateConfig fullbitrateConf PROGMEM = {{DSP_WIDTH-TFT_FRAMEWDT-36, 44, 2, WA_LEFT}, 42 };
 
 /* BANDS  */                             /* { onebandwidth, onebandheight, bandsHspace, bandsVspace, numofbands, fadespeed } */
-const VUBandsConfig bandsConf     PROGMEM = { 30, 100, 6, 2, 10, 5 };
+const VUBandsConfig bandsConf     PROGMEM = { 40, 100, 6, 2, 8, 10 };
 
 /* STRINGS  */
 const char         numtxtFmt[]    PROGMEM = "%d";
