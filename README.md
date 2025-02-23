@@ -2,7 +2,7 @@ DOCUMENT IN PROGRESS...
 
 # yoRadio MOD for GUITION JC4827W543C.
 
-This project is based on the original yoRadio project which you can find [here.](https://github.com/e2002/yoradio)
+This project is based on the original yoRadio project which you can find [here](https://github.com/e2002/yoradio)
 
 The hardware of this board contains a display that is not currently supported by yoRadio, but there are many people in the yoRadio community who offer to help you when a challenge arises.
 
@@ -25,4 +25,7 @@ Instead of the fonts used, I used the default font from the library, but that me
 After the changes, I managed to display everything necessary with the default font, and I replaced the icons at the sound level and at the RSSI level with text.
 
 ![TTRR](https://github.com/user-attachments/assets/9dcf861a-cdf0-4b13-8958-604f3bdf259e)
+
+I bought the microcontroller from [here](https://www.aliexpress.com/item/1005006729377800.html) the version with capacitive touchscreen.
+
 
