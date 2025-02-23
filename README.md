@@ -8,7 +8,7 @@ The discussion that helped me get yoRadio working can be seen [here.](https://gi
 
 Here I also received the working code with the working graphics driver, with the working touchscreen and with the DAC set correctly.
 
-For correct operation you must use:
+### For correct operation you must use:
 - AsyncTCP version 1.1.3
 - ESP Async Webserver 2.9.0
 - GFX Arduino 1.4.7
