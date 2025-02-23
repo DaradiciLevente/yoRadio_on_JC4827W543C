@@ -36,7 +36,7 @@ You do not need to solder anything, add anything.
 Just upload the code to the microcontroller and connect a speaker to the audio output of the board.
 
 Attention! The audio output has the smaller connector! (SH 1.0)
-The connector has 2P and I bought it from here: https://www.aliexpress.com/item/32921127444.html
+The connector has 2P and I bought it from [here](https://www.aliexpress.com/item/32921127444.html)
 This connector is perfect for audio output.
 
 The display has beautiful colors and wide viewing angles.
