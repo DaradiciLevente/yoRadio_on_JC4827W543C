@@ -10,5 +10,4 @@ But I was lucky that two yoRadio fans already had the solution for adapting this
 
 I would like to thank the users [@CoolmdXi](https://github.com/CoolmdXi) and [@bobcroft](https://github.com/bobcroft)
 who provided me with working code for this board.
-
-
+The discussion that helped me get yoRadio working can be seen [here.]{https://github.com/e2002/yoradio/issues/105)
