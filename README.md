@@ -7,7 +7,11 @@ who provided me with working code for this board.
 The discussion that helped me get yoRadio working can be seen [here.](https://github.com/e2002/yoradio/issues/105)
 
 Here I also received the working code with the working graphics driver, with the working touchscreen and with the DAC set correctly.
-Thanks again for the help!
+For correct operation you must use:
+AsyncTCP version 1.1.3
+ESP Async Webserver 2.9.0
+GFX Arduino 1.4.7
+ESP32 boards 3.0.1
 
 The only problem was that one of my fonts didn't initialize, so everything that was displayed with that font wasn't displayed on the screen. (In reality, several fonts didn't work for me, even though everything was in place.)
 This way the clock doesn't appear on the display, the volume doesn't appear in the middle of the display when I adjust the volume on the touchscreen, etc.
