@@ -21,3 +21,8 @@ So I added small changes to correct these.
 Instead of the fonts used, I used the default font from the library, but that meant that I had to move everything on the display so that everything would appear in its place.
 
 ![image](https://github.com/user-attachments/assets/33d490fb-beec-4558-ac61-773df08958cb)
+
+After the changes, I managed to display everything necessary with the default font, and I replaced the icons at the sound level and at the RSSI level with text.
+
+![TTRR](https://github.com/user-attachments/assets/9dcf861a-cdf0-4b13-8958-604f3bdf259e)
+
