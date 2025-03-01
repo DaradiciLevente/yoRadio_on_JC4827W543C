@@ -45,3 +45,5 @@ The capacitive touchscreen is extremely responsive.
 The sound on the audio output is good.
 
 In the next few days I will make a video showing how I uploaded the firmware to the microcontroller and how it works.
+
+#yoRadio #eRadio #ёRadio #GUITION #JC4827W543C #esp32 #esp32s3 #esp32project #webradio #internetradio
