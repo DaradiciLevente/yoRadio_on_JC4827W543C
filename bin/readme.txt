@@ -1,3 +1,7 @@
+***********************************************************
+04-03-2025
+Added SD card reader functionality for playing MP3 files.
+***********************************************************
 EN.
 The file is the compiled firmware of yoRadio for the JC4827W543C board. It is the one with the capacitive touchscreen!
 
