@@ -50,4 +50,7 @@
 //#define PLAYER_FORCE_MONO false             /*  mono option on boot - false stereo, true mono  */
 //#define I2S_INTERNAL      false             /*  If true - use esp32 internal DAC  */
 
+#define SD_SPIPINS    12, 13, 11      /* SCK, MISO, MOSI */
+#define SDC_CS        10              /* Chip Select */
+
 #endif
