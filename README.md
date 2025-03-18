@@ -44,6 +44,10 @@ The display has beautiful colors and wide viewing angles.
 The capacitive touchscreen is extremely responsive.
 The sound on the audio output is good.
 
-In the next few days I will make a video showing how I uploaded the firmware to the microcontroller and how it works.
+I made two videos showing how to install the *.bin file on the microcontroller, and the second video showing how to add the SD card for playing MP3 files.
+
+https://youtu.be/828zJZ32_Bs?si=s1KyeXXU8aXoe0JA
+
+https://youtu.be/pMsSwy1TMJo?si=6fVG-KKX2Bk-Zb2s
 
 #yoRadio #eRadio #ёRadio #GUITION #JC4827W543C #esp32 #esp32s3 #esp32project #webradio #internetradio
