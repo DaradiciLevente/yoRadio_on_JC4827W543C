@@ -48,9 +48,6 @@ I made two videos showing how to install the *.bin file on the microcontroller, 
 
 [![Video YouTube](https://i.imgur.com/c2yCwfi.png)](https://www.youtube.com/watch?v=828zJZ32_Bs)
 
-
-https://youtu.be/828zJZ32_Bs?si=s1KyeXXU8aXoe0JA
-
-https://youtu.be/pMsSwy1TMJo?si=6fVG-KKX2Bk-Zb2s
+[![Video YouTube](https://i.imgur.com/eu5dsCe.png)](https://www.youtube.com/watch?v=pMsSwy1TMJo?)
 
 #yoRadio #eRadio #ёRadio #GUITION #JC4827W543C #esp32 #esp32s3 #esp32project #webradio #internetradio
