@@ -46,7 +46,7 @@ The sound on the audio output is good.
 
 I made two videos showing how to install the *.bin file on the microcontroller, and the second video showing how to add the SD card for playing MP3 files.
 
-[![Video YouTube](https://i.imgur.com/2GOUB7L.png)](https://www.youtube.com/watch?v=828zJZ32_Bs)
+[![Video YouTube](https://i.imgur.com/c2yCwfi.png)](https://www.youtube.com/watch?v=828zJZ32_Bs)
 
 
 https://youtu.be/828zJZ32_Bs?si=s1KyeXXU8aXoe0JA
