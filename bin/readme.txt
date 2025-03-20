@@ -1,4 +1,7 @@
 ***********************************************************
+I fixed the weather section where coordinates couldn't be saved. Now it works!
+
+***********************************************************
 04-03-2025
 Added SD card reader functionality for playing MP3 files.
 ***********************************************************
