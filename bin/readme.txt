@@ -1,6 +1,7 @@
 ***********************************************************
+21-03-2025
 I fixed the weather section where coordinates couldn't be saved. Now it works!
-
+https://github.com/DaradiciLevente/yoRadio_on_JC4827W543C/blob/main/bin/JC4827W543WeatherOK_02.bin
 ***********************************************************
 04-03-2025
 Added SD card reader functionality for playing MP3 files.
