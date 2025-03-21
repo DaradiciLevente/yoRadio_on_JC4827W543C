@@ -32,7 +32,7 @@ void setup() {
   pinMode(GFX_BL, OUTPUT);//#############################
   digitalWrite(GFX_BL, HIGH);//#############################
   //ts.begin();
-
+ 
 
   if (yoradio_on_setup) yoradio_on_setup();
   config.init();

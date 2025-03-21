@@ -554,8 +554,8 @@ void NetServer::onWsMessage(void *arg, uint8_t *data, size_t len, uint8_t client
         }
         if (strcmp(val, "weather") == 0) {
           config.store.showweather = 0;
-          strlcpy(config.store.weatherlat, "45.8239", 10);
-          strlcpy(config.store.weatherlon, "22.9400", 10);
+          strlcpy(config.store.weatherlat, "55.7512", 10);
+          strlcpy(config.store.weatherlon, "37.6184", 10);
           strlcpy(config.store.weatherkey, "", 64);
           config.save();
           network.trueWeather=false;
@@ -726,7 +726,6 @@ String processor(const String& var) { // %Templates%
   if (var == "ACTION") return (network.status == CONNECTED && !config.emptyFS)?"webboard":"";
   if (var == "UPLOADWIFI") return (network.status == CONNECTED)?" hidden":"";
   if (var == "VERSION") return YOVERSION;
-  if (var == "URL") return YOURL;
   return String();
 }
 

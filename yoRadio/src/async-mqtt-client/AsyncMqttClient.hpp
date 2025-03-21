@@ -10,7 +10,7 @@
 #endif
 
 #ifdef ESP32
-#include "AsyncTCP.h"
+#include "../AsyncWebServer/AsyncTCP.h"
 #include <freertos/semphr.h>
 #elif defined(ESP8266)
 #include <ESPAsyncTCP.h>

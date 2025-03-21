@@ -34,6 +34,7 @@ void DspCore::initDisplay() {
   plYStart = (height() / 2 - plItemHeight / 2) - plItemHeight * (plTtemsCount - 1) / 2 + playlistConf.widget.textsize*2;
 }
 
+
 void DspCore::drawLogo(uint16_t top) 
     { 
 	digitalWrite(GFX_BL, LOW);
@@ -88,7 +89,7 @@ void DspCore::_clockSeconds(){
   setCursor(width() + 20 - clockRightSpace - CHARWIDTH*4*2, clockTop-clockTimeHeight+68);
   sprintf(_bufforseconds, "%02d", network.timeinfo.tm_sec);
   print(_bufforseconds);                                      /* print seconds */
-  setTextSize(9);
+ setTextSize(9);
   //setFont(&DS_DIGI56pt7b);
   setFont(NULL);
   setTextSize(9);
@@ -239,3 +240,4 @@ void DspCore::setNumFont(){
     setTextSize(12);
 }
 #endif
+

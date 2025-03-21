@@ -8,8 +8,6 @@
 
 Telnet telnet;
 
-String request;
-
 bool Telnet::_isIPSet(IPAddress ip) {
   return ip.toString() == "0.0.0.0";
 }
@@ -63,16 +61,8 @@ void Telnet::cleanupClients() {
 
 void Telnet::handleSerial(){
   if(Serial.available()){
-    char recieved = Serial.read();
-    request += recieved;
-
-    // Process message when new line character is recieved
-    if (recieved == '\n'){
-      request.trim();
-      on_input(request.c_str(), 100);
-
-      request = ""; // Clear recieved buffer
-    }
+    String request = Serial.readStringUntil('\n'); request.trim();
+    on_input(request.c_str(), 100);
   }
 }
 

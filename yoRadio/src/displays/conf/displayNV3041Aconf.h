@@ -21,13 +21,16 @@
 #define bootLogoTop     110
 
 /* SROLLS  */                            /* {{ left, top, fontsize, align }, buffsize, uppercase, width, scrolldelay, scrolldelta, scrolltime } */
-const ScrollConfig metaConf       PROGMEM = {{ TFT_FRAMEWDT, TFT_FRAMEWDT, 3, WA_LEFT }, 140, false, MAX_WIDTH, 5000, 7, 40 };
-const ScrollConfig title1Conf     PROGMEM = {{ TFT_FRAMEWDT, 48, 2, WA_LEFT }, 140, false, MAX_WIDTH-(TITLE_FIX==0?6*2*7-6:TITLE_FIX), 5000, 7, 40 };
+const ScrollConfig metaConf       PROGMEM = {{ TFT_FRAMEWDT, TFT_FRAMEWDT, 3, WA_LEFT }, 140, true, MAX_WIDTH, 5000, 7, 40 };
+const ScrollConfig title1Conf     PROGMEM = {{ TFT_FRAMEWDT, 48, 2, WA_LEFT }, 140, true, MAX_WIDTH-(TITLE_FIX==0?6*2*7-6:TITLE_FIX), 5000, 7, 40 };
 const ScrollConfig title2Conf     PROGMEM = {{ TFT_FRAMEWDT, 69, 2, WA_LEFT }, 140, false, MAX_WIDTH-TITLE_FIX, 5000, 7, 40 };
 const ScrollConfig playlistConf   PROGMEM = {{ TFT_FRAMEWDT, 146, 3, WA_LEFT }, 140, false, MAX_WIDTH, 1000, 7, 40 };
 const ScrollConfig apTitleConf    PROGMEM = {{ TFT_FRAMEWDT, TFT_FRAMEWDT, 4, WA_CENTER }, 140, false, MAX_WIDTH, 0, 7, 40 };
 const ScrollConfig apSettConf     PROGMEM = {{ TFT_FRAMEWDT, 320-TFT_FRAMEWDT-16, 2, WA_LEFT }, 140, false, MAX_WIDTH, 0, 7, 40 };
-const ScrollConfig weatherConf    PROGMEM = {{ TFT_FRAMEWDT * 2, 92, 2, WA_LEFT }, 140, false, MAX_WIDTH - TFT_FRAMEWDT, 0, 7, 40 };
+//const ScrollConfig weatherConf    PROGMEM = {{ TFT_FRAMEWDT * 2, 92, 2, WA_LEFT }, 140, false, MAX_WIDTH - TFT_FRAMEWDT, 0, 7, 40 };
+//const ScrollConfig weatherConf    PROGMEM = {{ TFT_FRAMEWDT * 2, 92, 3, WA_LEFT }, 140, true, MAX_WIDTH - TFT_FRAMEWDT - 80, 0, 3, 40 };
+const ScrollConfig weatherConf    PROGMEM = {{ 10, 92, 3, WA_LEFT }, 140, true, MAX_WIDTH+20, 0, 3, 40 };
+
 
 /* BACKGROUNDS  */                       /* {{ left, top, fontsize, align }, width, height, outlined } */
 const FillConfig   metaBGConf     PROGMEM = {{ 0, 0, 0, WA_LEFT }, DSP_WIDTH, 40, false };
@@ -41,34 +44,39 @@ const WidgetConfig bootstrConf    PROGMEM = { 0, 243, 1, WA_CENTER };
 const WidgetConfig bitrateConf    PROGMEM = { 6, 62, 2, WA_RIGHT };
 const WidgetConfig voltxtConf     PROGMEM = { 0, DSP_HEIGHT-38, 2, WA_CENTER };
 const WidgetConfig  iptxtConf     PROGMEM = { TFT_FRAMEWDT, DSP_HEIGHT-38, 2, WA_LEFT };
-const WidgetConfig   rssiConf     PROGMEM = { TFT_FRAMEWDT, DSP_HEIGHT-38-6, 3, WA_RIGHT };
+//const WidgetConfig   rssiConf     PROGMEM = { TFT_FRAMEWDT, DSP_HEIGHT-38-6, 3, WA_RIGHT };
+const WidgetConfig   rssiConf     PROGMEM = { TFT_FRAMEWDT, DSP_HEIGHT-38, 2, WA_RIGHT };
 const WidgetConfig numConf        PROGMEM = { 0, 170, 70, WA_CENTER };
 const WidgetConfig apNameConf     PROGMEM = { TFT_FRAMEWDT, 88, 3, WA_CENTER };
 const WidgetConfig apName2Conf    PROGMEM = { TFT_FRAMEWDT, 120, 3, WA_CENTER };
 const WidgetConfig apPassConf     PROGMEM = { TFT_FRAMEWDT, 173, 3, WA_CENTER };
 const WidgetConfig apPass2Conf    PROGMEM = { TFT_FRAMEWDT, 205, 3, WA_CENTER };
 //const WidgetConfig  clockConf     PROGMEM = { 16, 224, 70, WA_RIGHT };  /* 52 is a fixed font size. do not change */
-const WidgetConfig  clockConf     PROGMEM = { 16, 50, 52, WA_RIGHT };  /* 52 is a fixed font size. do not change */
+const WidgetConfig  clockConf     PROGMEM = { 48, 130, 70, WA_RIGHT };  /* 52 is a fixed font size. do not change */
 //const WidgetConfig vuConf         PROGMEM = { TFT_FRAMEWDT, 136, 1, WA_LEFT };
-const WidgetConfig vuConf         PROGMEM = { TFT_FRAMEWDT + 20, 110, 1, WA_LEFT };
+const WidgetConfig vuConf         PROGMEM = { TFT_FRAMEWDT, 120, 1, WA_LEFT };
 
 const WidgetConfig bootWdtConf    PROGMEM = { 0, 216, 1, WA_CENTER };
 const ProgressConfig bootPrgConf  PROGMEM = { 90, 14, 4 };
 const BitrateConfig fullbitrateConf PROGMEM = {{DSP_WIDTH-TFT_FRAMEWDT-36, 44, 2, WA_LEFT}, 42 };
 
 /* BANDS  */                             /* { onebandwidth, onebandheight, bandsHspace, bandsVspace, numofbands, fadespeed } */
-const VUBandsConfig bandsConf     PROGMEM = { 30, 110, 6, 2, 10, 10 };
+const VUBandsConfig bandsConf     PROGMEM = { 40, 100, 6, 2, 8, 10 };
 
 /* STRINGS  */
 const char         numtxtFmt[]    PROGMEM = "%d";
+//const char           rssiFmt[]    PROGMEM = "WiFi %d";
 const char           rssiFmt[]    PROGMEM = "WiFi %d";
+
 const char          iptxtFmt[]    PROGMEM = "%s";
-const char         voltxtFmt[]    PROGMEM = "\023\025%d";
+//const char         voltxtFmt[]    PROGMEM = "\023\025%d";
+const char         voltxtFmt[]    PROGMEM = "VOL %d";
+
 const char        bitrateFmt[]    PROGMEM = "%d kBs";
 
 /* MOVES  */                             /* { left, top, width } */
 const MoveConfig    clockMove     PROGMEM = { 48, 194, -1 /* MAX_WIDTH */ }; // -1 disables move
-const MoveConfig   weatherMove    PROGMEM = { TFT_FRAMEWDT*2, 92, MAX_WIDTH - TFT_FRAMEWDT};
-const MoveConfig   weatherMoveVU  PROGMEM = { TFT_FRAMEWDT*2, 92, MAX_WIDTH - TFT_FRAMEWDT};
+const MoveConfig   weatherMove    PROGMEM = { 10, 92, MAX_WIDTH +20};
+const MoveConfig   weatherMoveVU  PROGMEM = { 10, 92, MAX_WIDTH +20};
 
 #endif

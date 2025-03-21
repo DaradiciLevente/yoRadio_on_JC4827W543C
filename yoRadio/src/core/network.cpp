@@ -6,13 +6,12 @@
 #include "netserver.h"
 #include "player.h"
 #include "mqtt.h"
-#include <ArduinoJson.h>
 
 #ifndef WIFI_ATTEMPTS
 	#define WIFI_ATTEMPTS	16
 #endif
 
-YoNetwork network;
+Network network;
 
 TaskHandle_t syncTaskHandle;
 //TaskHandle_t reconnectTaskHandle;
@@ -74,7 +73,7 @@ void ticks() {
   }
 }
 
-void YoNetwork::WiFiReconnected(WiFiEvent_t event, WiFiEventInfo_t info){
+void Network::WiFiReconnected(WiFiEvent_t event, WiFiEventInfo_t info){
   network.beginReconnect = false;
   player.lockOutput = false;
   delay(100);
@@ -91,7 +90,7 @@ void YoNetwork::WiFiReconnected(WiFiEvent_t event, WiFiEventInfo_t info){
   #endif
 }
 
-void YoNetwork::WiFiLostConnection(WiFiEvent_t event, WiFiEventInfo_t info){
+void Network::WiFiLostConnection(WiFiEvent_t event, WiFiEventInfo_t info){
   if(!network.beginReconnect){
     Serial.printf("Lost connection, reconnecting to %s...\n", config.ssids[config.store.lastSSID-1].ssid);
     if(config.getMode()==PM_SDCARD) {
@@ -107,7 +106,7 @@ void YoNetwork::WiFiLostConnection(WiFiEvent_t event, WiFiEventInfo_t info){
   WiFi.reconnect();
 }
 
-bool YoNetwork::wifiBegin(bool silent){
+bool Network::wifiBegin(bool silent){
   uint8_t ls = (config.store.lastSSID == 0 || config.store.lastSSID > config.ssidsCount) ? 0 : config.store.lastSSID - 1;
   uint8_t startedls = ls;
   uint8_t errcnt = 0;
@@ -122,7 +121,7 @@ bool YoNetwork::wifiBegin(bool silent){
     while (WiFi.status() != WL_CONNECTED) {
       if(!silent) Serial.print(".");
       delay(500);
-      if(YO_LED_BUILTIN!=255 && !silent) digitalWrite(YO_LED_BUILTIN, !digitalRead(YO_LED_BUILTIN));
+      if(LED_BUILTIN!=255 && !silent) digitalWrite(LED_BUILTIN, !digitalRead(LED_BUILTIN));
       errcnt++;
       if (errcnt > WIFI_ATTEMPTS) {
         errcnt = 0;
@@ -159,7 +158,7 @@ void searchWiFi(void * pvParameters){
 
 #define DBGAP false
 
-void YoNetwork::begin() {
+void Network::begin() {
   BOOTLOG("network.begin");
   config.initNetwork();
   ctimer.detach();
@@ -183,7 +182,7 @@ void YoNetwork::begin() {
   }
   
   Serial.println("##[BOOT]#\tdone");
-  if(YO_LED_BUILTIN!=255) digitalWrite(YO_LED_BUILTIN, LOW);
+  if(LED_BUILTIN!=255) digitalWrite(LED_BUILTIN, LOW);
   
 #if RTCSUPPORTED
 	rtc.getTime(&network.timeinfo);
@@ -194,7 +193,7 @@ void YoNetwork::begin() {
   if (network_on_connect) network_on_connect();
 }
 
-void YoNetwork::setWifiParams(){
+void Network::setWifiParams(){
   WiFi.setSleep(false);
   WiFi.onEvent(WiFiReconnected, WiFiEvent_t::ARDUINO_EVENT_WIFI_STA_GOT_IP);
   WiFi.onEvent(WiFiLostConnection, WiFiEvent_t::ARDUINO_EVENT_WIFI_STA_DISCONNECTED);
@@ -211,7 +210,7 @@ void YoNetwork::setWifiParams(){
   }
 }
 
-void YoNetwork::requestTimeSync(bool withTelnetOutput, uint8_t clientId) {
+void Network::requestTimeSync(bool withTelnetOutput, uint8_t clientId) {
   if (withTelnetOutput) {
     char timeStringBuff[50];
     strftime(timeStringBuff, sizeof(timeStringBuff), "%Y-%m-%dT%H:%M:%S", &timeinfo);
@@ -227,7 +226,7 @@ void rebootTime() {
   ESP.restart();
 }
 
-void YoNetwork::raiseSoftAP() {
+void Network::raiseSoftAP() {
   WiFi.mode(WIFI_AP);
   WiFi.softAP(apSsid, apPassword);
   Serial.println("##[BOOT]#");
@@ -241,7 +240,7 @@ void YoNetwork::raiseSoftAP() {
     rtimer.once(config.store.softapdelay*60, rebootTime);
 }
 
-void YoNetwork::requestWeatherSync(){
+void Network::requestWeatherSync(){
   display.putRequest(NEWWEATHER);
 }
 
@@ -270,7 +269,7 @@ void doSync( void * pvParameters ) {
       }
     }
   }
-  if(network.weatherBuf && config.store.showweather && network.forceWeather){
+  if(network.weatherBuf && (strlen(config.store.weatherkey)!=0 && config.store.showweather) && network.forceWeather){
     network.forceWeather = false;
     network.trueWeather=getWeather(network.weatherBuf);
   }
@@ -280,20 +279,14 @@ void doSync( void * pvParameters ) {
 bool getWeather(char *wstr) {
 #if (DSP_MODEL!=DSP_DUMMY || defined(USE_NEXTION)) && !defined(HIDE_WEATHER)
   WiFiClient client;
-  //https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.41&current=temperature_2m,relative_humidity_2m,apparent_temperature,surface_pressure,wind_speed_10m,wind_direction_10m&wind_speed_unit=ms&timezone=GMT
-  const char* host  = "api.open-meteo.com";
+  const char* host  = "api.openweathermap.org";
   
   if (!client.connect(host, 80)) {
     Serial.println("##WEATHER###: connection  failed");
     return false;
   }
-  char httpget[300] = {0};
-  int j;
-  j = snprintf(httpget, sizeof httpget, "GET /v1/forecast?latitude=%s&longitude=%s&current=temperature_2m,relative_humidity_2m,apparent_temperature,surface_pressure,wind_speed_10m,wind_direction_10m&wind_speed_unit=ms&timezone=GMT HTTP/1.1\r\nHost: %s\r\nConnection: close\r\n\r\n", config.store.weatherlat, config.store.weatherlon, host);
-  if (j >= sizeof httpget) {
-    Serial.printf("##WEATHER###: httpget buffer length exceeded; increase size of httpget.\n");
-    return false;
-  }
+  char httpget[250] = {0};
+  sprintf(httpget, "GET /data/2.5/weather?lat=%s&lon=%s&units=%s&lang=%s&appid=%s HTTP/1.1\r\nHost: %s\r\nConnection: close\r\n\r\n", config.store.weatherlat, config.store.weatherlon, weatherUnits, weatherLang, config.store.weatherkey, host);
   client.print(httpget);
   unsigned long timeout = millis();
   while (client.available() == 0) {
@@ -309,7 +302,7 @@ bool getWeather(char *wstr) {
     while (client.available())
     {
       line = client.readStringUntil('\n');
-      if (strstr(line.c_str(), "\"temperature_2m\"") != NULL) {
+      if (strstr(line.c_str(), "\"temp\"") != NULL) {
         client.stop();
         break;
       }
@@ -321,42 +314,130 @@ bool getWeather(char *wstr) {
       }
     }
   }
-  if (strstr(line.c_str(), "\"temperature_2m\"") == NULL) {
+  if (strstr(line.c_str(), "\"temp\"") == NULL) {
     Serial.println("##WEATHER###: weather not found !");
     return false;
   }
+  char *tmpe;
+  char *tmps;
+  char *tmpc;
+  const char* cursor = line.c_str();
+  char desc[120], temp[20], hum[20], press[20], icon[5];
 
-  JsonDocument doc;
+  tmps = strstr(cursor, "\"description\":\"");
+  if (tmps == NULL) { Serial.println("##WEATHER###: description not found !"); return false;}
+  tmps += 15;
+  tmpe = strstr(tmps, "\",\"");
+  if (tmpe == NULL) { Serial.println("##WEATHER###: description not found !"); return false;}
+  strlcpy(desc, tmps, tmpe - tmps + 1);
+  cursor = tmpe + 2;
+  
+  // "ясно","icon":"01d"}],
+  tmps = strstr(cursor, "\"icon\":\"");
+  if (tmps == NULL) { Serial.println("##WEATHER###: icon not found !"); return false;}
+  tmps += 8;
+  tmpe = strstr(tmps, "\"}");
+  if (tmpe == NULL) { Serial.println("##WEATHER###: icon not found !"); return false;}
+  strlcpy(icon, tmps, tmpe - tmps + 1);
+  cursor = tmpe + 2;
+  
+  tmps = strstr(cursor, "\"temp\":");
+  if (tmps == NULL) { Serial.println("##WEATHER###: temp not found !"); return false;}
+  tmps += 7;
+  tmpe = strstr(tmps, ",\"");
+  if (tmpe == NULL) { Serial.println("##WEATHER###: temp not found !"); return false;}
+  strlcpy(temp, tmps, tmpe - tmps + 1);
+  cursor = tmpe + 1;
+  float tempf = atof(temp);
 
-  DeserializationError error = deserializeJson(doc, line);
+  tmps = strstr(cursor, "\"feels_like\":");
+  if (tmps == NULL) { Serial.println("##WEATHER###: feels_like not found !"); return false;}
+  tmps += 13;
+  tmpe = strstr(tmps, ",\"");
+  if (tmpe == NULL) { Serial.println("##WEATHER###: feels_like not found !"); return false;}
+  strlcpy(temp, tmps, tmpe - tmps + 1);
+  cursor = tmpe + 2;
+  float tempfl = atof(temp); (void)tempfl;
 
-  if (error) {
-    Serial.print("##WEATHER###: deserializeJson() failed: ");
-    Serial.println(error.c_str());
-    Serial.println(line);
-    return false;
+  tmps = strstr(cursor, "\"pressure\":");
+  if (tmps == NULL) { Serial.println("##WEATHER###: pressure not found !"); return false;}
+  tmps += 11;
+  tmpe = strstr(tmps, ",\"");
+  if (tmpe == NULL) { Serial.println("##WEATHER###: pressure not found !"); return false;}
+  strlcpy(press, tmps, tmpe - tmps + 1);
+  cursor = tmpe + 2;
+  int pressi = (float)atoi(press) / 1.333;
+  
+  tmps = strstr(cursor, "humidity\":");
+  if (tmps == NULL) { Serial.println("##WEATHER###: humidity not found !"); return false;}
+  tmps += 10;
+  tmpe = strstr(tmps, ",\"");
+  tmpc = strstr(tmps, "}");
+  if (tmpe == NULL) { Serial.println("##WEATHER###: humidity not found !"); return false;}
+  strlcpy(hum, tmps, tmpe - tmps + (tmpc>tmpe?1:0));
+  
+  tmps = strstr(cursor, "\"grnd_level\":");
+  bool grnd_level_pr = (tmps != NULL);
+  if(grnd_level_pr){
+    tmps += 13;
+    tmpe = strstr(tmps, ",\"");
+    if (tmpe == NULL) { Serial.println("##WEATHER###: grnd_level not found !"); return false;}
+    strlcpy(press, tmps, tmpe - tmps + 1);
+    cursor = tmpe + 2;
+    pressi = (float)atoi(press) / 1.333;
   }
-
-  JsonObject current = doc["current"];
-
-  float tempf = current["temperature_2m"];
-  String hum = current["relative_humidity_2m"];
-  float tempfl = current["apparent_temperature"];
-  int pressi = current["surface_pressure"];
-  float wind_speed = current["wind_speed_10m"];
-  int wind_deg = (int)((int)current["wind_direction_10m"]/22.5);
+  
+  tmps = strstr(cursor, "\"speed\":");
+  if (tmps == NULL) { Serial.println("##WEATHER###: wind speed not found !"); return false;}
+  tmps += 8;
+  tmpe = strstr(tmps, ",\"");
+  if (tmpe == NULL) { Serial.println("##WEATHER###: wind speed not found !"); return false;}
+  strlcpy(temp, tmps, tmpe - tmps + 1);
+  cursor = tmpe + 1;
+  float wind_speed = atof(temp); (void)wind_speed;
+  
+  tmps = strstr(cursor, "\"deg\":");
+  if (tmps == NULL) { Serial.println("##WEATHER###: wind deg not found !"); return false;}
+  tmps += 6;
+  tmpe = strstr(tmps, ",\"");
+  if (tmpe == NULL) { Serial.println("##WEATHER###: wind deg not found !"); return false;}
+  strlcpy(temp, tmps, tmpe - tmps + 1);
+  cursor = tmpe + 1;
+  int wind_deg = atof(temp)/22.5;
   if(wind_deg<0) wind_deg = 16+wind_deg;
-
+  
+  
+  #ifdef USE_NEXTION
+    nextion.putcmdf("press_txt.txt=\"%dmm\"", pressi);
+    nextion.putcmdf("hum_txt.txt=\"%d%%\"", atoi(hum));
+    char cmd[30];
+    snprintf(cmd, sizeof(cmd)-1,"temp_txt.txt=\"%.1f\"", tempf);
+    nextion.putcmd(cmd);
+    int iconofset;
+    if(strstr(icon,"01")!=NULL)      iconofset = 0;
+    else if(strstr(icon,"02")!=NULL) iconofset = 1;
+    else if(strstr(icon,"03")!=NULL) iconofset = 2;
+    else if(strstr(icon,"04")!=NULL) iconofset = 3;
+    else if(strstr(icon,"09")!=NULL) iconofset = 4;
+    else if(strstr(icon,"10")!=NULL) iconofset = 5;
+    else if(strstr(icon,"11")!=NULL) iconofset = 6;
+    else if(strstr(icon,"13")!=NULL) iconofset = 7;
+    else if(strstr(icon,"50")!=NULL) iconofset = 8;
+    else                             iconofset = 9;
+    nextion.putcmd("cond_img.pic", 50+iconofset);
+    nextion.weatherVisible(1);
+  #endif
+  
+  Serial.printf("##WEATHER###: description: %s, temp:%.1f C, pressure:%dmmHg, humidity:%s%%\n", desc, tempf, pressi, hum);
   #ifdef WEATHER_FMT_SHORT
-    sprintf(wstr, (const char*)&weatherFmt[3], tempf, pressi, hum.c_str());
+  sprintf(wstr, weatherFmt, tempf, pressi, hum);
   #else
     #if EXT_WEATHER
-      sprintf(wstr, (const char*)&weatherFmt[3], tempf, tempfl, pressi, hum.c_str(), wind_speed, wind[wind_deg]);
+      sprintf(wstr, weatherFmt, desc, tempf, tempfl, pressi, hum, wind_speed, wind[wind_deg]);
     #else
-      sprintf(wstr, (const char*)&weatherFmt[3], tempf, pressi, hum.c_str());
+      sprintf(wstr, weatherFmt, desc, tempf, pressi, hum);
     #endif
   #endif
-  Serial.printf("##WEATHER###: %s\n", wstr);
   network.requestWeatherSync();
   return true;
 #endif // if (DSP_MODEL!=DSP_DUMMY || defined(USE_NEXTION)) && !defined(HIDE_WEATHER)

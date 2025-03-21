@@ -2,7 +2,7 @@
 #define options_h
 
 #ifndef YOVERSION
-#define YOVERSION "v0.9.300"
+#define YOVERSION " JC4827W543C MOD by Levy"
 #endif
 
 #ifndef YOURL

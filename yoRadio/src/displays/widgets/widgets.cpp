@@ -297,12 +297,9 @@ void VuWidget::_draw(){
   static uint16_t measL, measR;
   uint16_t bandColor;
   uint16_t dimension = _config.align?_bands.width:_bands.height;
-  uint8_t L = map(player.vuLeft, 0, 127, 0, dimension);
-  uint8_t R = map(player.vuRight, 0,127, 0, dimension);
+  uint8_t L = map(player.vuLeft, 255, 0, 0, dimension);
+  uint8_t R = map(player.vuRight, 255, 0, 0, dimension);
   bool played = player.isRunning();
-  //ledcWrite(0, 4096 - 2*L);
-  //ledcWrite(0, 4096);
-  //Serial.printf("vu %d\n", L);
   if(played){
     measL=(L>=measL)?measL + _bands.fadespeed:L;
     measR=(R>=measR)?measR + _bands.fadespeed:R;
@@ -312,8 +309,6 @@ void VuWidget::_draw(){
   }
   if(measL>dimension) measL=dimension;
   if(measR>dimension) measR=dimension;
-  //ledcWrite(0, measL);
-  //Serial.printf("vu %d\n", measL);
   uint8_t h=(dimension/_bands.perheight)-_bands.vspace;
   _canvas->fillRect(0,0,_bands.width * 2 + _bands.space,_bands.height, _bgcolor);
   for(int i=0; i<dimension; i++){
@@ -413,9 +408,7 @@ void NumWidget::_draw() {
   dsp.setNumFont(); // --------------SetBigFont
   //dsp.setTextSize(1);
   dsp.setTextColor(_fgcolor, _bgcolor);
-  dsp.setCursor(_realLeft()-35, _config.top-85);
-  dsp.print("        ");
-  dsp.setCursor(_realLeft(), _config.top-80);
+  dsp.setCursor(_realLeft(), _config.top);
   dsp.print(_text);
   strlcpy(_oldtext, _text, _buffsize);
   dsp.setFont();
@@ -485,29 +478,24 @@ void BitrateWidget::setFormat(BitrateFormat format){
 
 void BitrateWidget::_draw(){
   _clear();
-  if(!_active) return;
+  if(!_active || _format == BF_UNCNOWN || _bitrate==0) return;
   dsp.drawRect(_config.left, _config.top, _dimension, _dimension, _fgcolor);
   dsp.fillRect(_config.left, _config.top + _dimension/2, _dimension, _dimension/2, _fgcolor);
   dsp.setFont();
   dsp.setTextSize(_config.textsize);
   dsp.setTextColor(_fgcolor, _bgcolor);
-  if (_bitrate==0)
-    snprintf(_buf, 6, "%s", "N/A");
-  else
-    snprintf(_buf, 6, "%d", _bitrate);
+  snprintf(_buf, 6, "%d", _bitrate);
   dsp.setCursor(_config.left + _dimension/2 - _charWidth*strlen(_buf)/2 + 1, _config.top + _dimension/4 - _textheight/2+1);
   dsp.print(_buf);
   dsp.setTextColor(_bgcolor, _fgcolor);
   dsp.setCursor(_config.left + _dimension/2 - _charWidth*3/2 + 1, _config.top + _dimension - _dimension/4 - _textheight/2);
   switch(_format){
-    case BF_MP3:    dsp.print("MP3"); break;
-    case BF_AAC:    dsp.print("AAC"); break;
-    case BF_FLAC:   dsp.print("FLC"); break;
-    case BF_OGG:    dsp.print("OGG"); break;
-    case BF_WAV:    dsp.print("WAV"); break;
-    case BF_OPUS:   dsp.print("OPS"); break;   //dsp.print("OPUS"); break;
-    case BF_VORBIS: dsp.print("VBS"); break; //dsp.print("VORBIS"); break;
-    default:        dsp.print("N/A"); break;
+    case BF_MP3:  dsp.print("MP3"); break;
+    case BF_AAC:  dsp.print("AAC"); break;
+    case BF_FLAC: dsp.print("FLC"); break;
+    case BF_OGG:  dsp.print("OGG"); break;
+    case BF_WAV:  dsp.print("WAV"); break;
+    default:                        break;
   }
 }
 

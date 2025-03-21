@@ -7,7 +7,7 @@
 
 #include "yoEncoder.h"
 
-void yoEncoder::readEncoder_ISR()
+void IRAM_ATTR yoEncoder::readEncoder_ISR()
 {
 
 	unsigned long now = millis();
@@ -28,7 +28,7 @@ void yoEncoder::readEncoder_ISR()
 		if (currentDirection != 0)
 		{
 			long prevRotaryPosition = this->encoder0Pos / this->encoderSteps;
-			this->encoder0Pos = this->encoder0Pos + currentDirection;
+			this->encoder0Pos += currentDirection;
 			long newRotaryPosition = this->encoder0Pos / this->encoderSteps;
 
 			if (newRotaryPosition != prevRotaryPosition && rotaryAccelerationCoef > 1)
@@ -56,11 +56,11 @@ void yoEncoder::readEncoder_ISR()
 						}
 						if (currentDirection > 0)
 						{
-							this->encoder0Pos = this->encoder0Pos + rotaryAccelerationCoef / millisAfterLastMotion;
+							this->encoder0Pos += rotaryAccelerationCoef / millisAfterLastMotion;
 						}
 						else
 						{
-							this->encoder0Pos = this->encoder0Pos - rotaryAccelerationCoef / millisAfterLastMotion;
+							this->encoder0Pos -= rotaryAccelerationCoef / millisAfterLastMotion;
 						}
 					}
 				}

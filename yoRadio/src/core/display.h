@@ -29,9 +29,9 @@ struct requestParams_t
 
 class Display {
   public:
-    uint16_t currentPlItem = 0;
-    uint16_t numOfNextStation = 0;
-    displayMode_e _mode = {};
+    uint16_t currentPlItem;
+    uint16_t numOfNextStation;
+    displayMode_e _mode;
   public:
     Display() {};
     displayMode_e mode() { return _mode; }
@@ -63,7 +63,6 @@ class Display {
     ClockWidget _clock;
     Page *_boot;
     TextWidget *_bootstring, *_volip, *_voltxt, *_rssi, *_bitrate;
-	//TextWidget *_bootstring, *_volip, *_voltxt, *_bitrate;
     Ticker _returnTicker;
     uint8_t _bootStep;
     void _time(bool redraw = false);
@@ -87,9 +86,9 @@ class Display {
 
 class Display {
   public:
-    uint16_t currentPlItem = 0;
-    uint16_t numOfNextStation = 0;
-    displayMode_e _mode = {};
+    uint16_t currentPlItem;
+    uint16_t numOfNextStation;
+    displayMode_e _mode;
   public:
     Display() {};
     displayMode_e mode() { return _mode; }

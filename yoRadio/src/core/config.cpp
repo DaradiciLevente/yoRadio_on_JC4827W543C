@@ -35,7 +35,6 @@ bool Config::_isFSempty() {
 void Config::init() {
   EEPROM.begin(EEPROM_SIZE);
   sdog.begin();
-  eepromRead(EEPROM_START, store);
   bootInfo();
 #if RTCSUPPORTED
 	_rtcFound = false;
@@ -58,6 +57,7 @@ void Config::init() {
     SDSPI.begin(SD_SPIPINS); // SCK, MISO, MOSI
   #endif
 #endif
+  eepromRead(EEPROM_START, store);
   if (store.config_set != 4262) setDefaults();
   backupLastStation = store.lastStation;
   if(store.play_mode==80) store.play_mode=0b100;
@@ -70,16 +70,6 @@ void Config::init() {
     return;
   }
   BOOTLOG("SPIFFS mounted");
-
-#if 0
-  File root = SPIFFS.open("/");
-  File file = root.openNextFile();
-  while(file){
-      Serial.print("file: ");
-      Serial.println(file.name());
-      file = root.openNextFile();
-  }
-#endif
   //emptyFS = !SPIFFS.exists("/www/index.html");
   emptyFS = _isFSempty();
   if(emptyFS) BOOTLOG("SPIFFS is empty!");
@@ -433,7 +423,7 @@ void Config::setDefaults() {
   store.lastSSID = 0;
   store.audioinfo = false;
   store.smartstart = 2;
-  store.tzHour = 2;
+  store.tzHour = 3;
   store.tzMin = 0;
   store.timezoneOffset = 0;
 
@@ -443,15 +433,15 @@ void Config::setDefaults() {
   store.invertdisplay=false;
   store.numplaylist=false;
   store.fliptouch=false;
-  store.dbgtouch=true;//##########################was flase
+  store.dbgtouch=false;
   store.dspon=true;
   store.brightness=100;
   store.contrast=55;
   strlcpy(store.sntp1,"pool.ntp.org", 35);
   strlcpy(store.sntp2,"1.ru.pool.ntp.org", 35);
   store.showweather=false;
-  strlcpy(store.weatherlat,"45.8239", 10);
-  strlcpy(store.weatherlon,"22.9400", 10);
+  strlcpy(store.weatherlat,"55.7512", 10);
+  strlcpy(store.weatherlon,"37.6184", 10);
   strlcpy(store.weatherkey,"", 64);
   store.volsteps = 1;
   store.encacc = 200;
@@ -918,7 +908,7 @@ void Config::sleepForAfter(uint16_t sf, uint16_t sa){
 
 void Config::bootInfo() {
   BOOTLOG("************************************************");
-  BOOTLOG("*               ёRadio %s                *", YOVERSION);
+  BOOTLOG("*               ёPadio v%s                *", YOVERSION);
   BOOTLOG("************************************************");
   BOOTLOG("------------------------------------------------");
   BOOTLOG("arduino:\t%d", ARDUINO);
@@ -929,14 +919,10 @@ void Config::bootInfo() {
 	  chipId |= ((ESP.getEfuseMac() >> (40 - i)) & 0xff) << i;
 	}
   BOOTLOG("chip:\t\tmodel: %s | rev: %d | id: %d | cores: %d | psram: %d", ESP.getChipModel(), ESP.getChipRevision(), chipId, ESP.getChipCores(), ESP.getPsramSize());
-  BOOTLOG("display:\tmodel=%d cs=%d dc=%d rst=%d", DSP_MODEL, TFT_CS, TFT_DC, TFT_RST);
+  BOOTLOG("display:\t%d", DSP_MODEL);
   if(VS1053_CS==255) {
-    if(I2S_INTERNAL==true) {
-      BOOTLOG("audio:\t\t%s %s", "I2S_INTERNAL_DAC", PLAYER_FORCE_MONO?"mono":"stereo");
-    }else{
-      BOOTLOG("audio:\t\t%s (%d, %d, %d)", "I2S", I2S_DOUT, I2S_BCLK, I2S_LRC);
-    }
-  } else{
+    BOOTLOG("audio:\t\t%s (%d, %d, %d)", "I2S", I2S_DOUT, I2S_BCLK, I2S_LRC);
+  }else{
     BOOTLOG("audio:\t\t%s (%d, %d, %d, %d, %s)", "VS1053", VS1053_CS, VS1053_DCS, VS1053_DREQ, VS1053_RST, VS_HSPI?"true":"false");
   }
   BOOTLOG("audioinfo:\t%s", store.audioinfo?"true":"false");

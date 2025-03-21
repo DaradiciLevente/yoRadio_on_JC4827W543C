@@ -13,18 +13,18 @@
 
 enum n_Status_e { CONNECTED, SOFT_AP, FAILED, SDREADY };
 
-class YoNetwork {
+class Network {
   public:
-    n_Status_e status = {};
-    struct tm timeinfo = {};
-    bool firstRun = false, forceTimeSync = false, forceWeather = false;
+    n_Status_e status;
+    struct tm timeinfo;
+    bool firstRun, forceTimeSync, forceWeather;
     bool lostPlaying = false, beginReconnect = false;
     //uint8_t tsFailCnt, wsFailCnt;
     Ticker ctimer;
-    char *weatherBuf = nullptr;
-    bool trueWeather = false;
+    char *weatherBuf;
+    bool trueWeather;
   public:
-    YoNetwork() {};
+    Network() {};
     void begin();
     void requestTimeSync(bool withTelnetOutput=false, uint8_t clientId=0);
     void requestWeatherSync();
@@ -37,7 +37,7 @@ class YoNetwork {
     static void WiFiReconnected(WiFiEvent_t event, WiFiEventInfo_t info);
 };
 
-extern YoNetwork network;
+extern Network network;
 
 extern __attribute__((weak)) void network_on_connect();
 

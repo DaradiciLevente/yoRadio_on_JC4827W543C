@@ -50,15 +50,13 @@ void Player::init() {
       setPinout(I2S_BCLK, I2S_LRC, I2S_DOUT);
     #endif
   #else
+    SPI.begin();
     if(VS1053_RST>0) ResetChip();
     begin();
   #endif
   setBalance(config.store.balance);
   setTone(config.store.bass, config.store.middle, config.store.trebble);
   setVolume(0);
-#if VS1053_CS==255
-  setVolumeSteps(254);
-#endif
   _status = STOPPED;
   //setOutputPins(false);
   _volTimer=false;
@@ -173,7 +171,7 @@ void Player::loop() {
 }
 
 void Player::setOutputPins(bool isPlaying) {
-  if(YO_LED_BUILTIN!=255) digitalWrite(YO_LED_BUILTIN, LED_INVERT?!isPlaying:isPlaying);
+  if(LED_BUILTIN!=255) digitalWrite(LED_BUILTIN, LED_INVERT?!isPlaying:isPlaying);
   bool _ml = MUTE_LOCK?!MUTE_VAL:(isPlaying?!MUTE_VAL:MUTE_VAL);
   if(MUTE_PIN!=255) digitalWrite(MUTE_PIN, _ml);
 }

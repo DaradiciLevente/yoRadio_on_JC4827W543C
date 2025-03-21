@@ -5,7 +5,6 @@
 #include "config.h"
 #include "controls.h"
 #include "display.h"
-#include "../displays/dspcore.h"
 #include "player.h"
 
 #ifndef TS_X_MIN
@@ -32,8 +31,8 @@
   XPT2046_Touchscreen ts(TS_CS);
   typedef TS_Point TSPoint;
 #elif TS_MODEL==TS_MODEL_GT911
-  #include "TAMC_GT911.h"
-  TAMC_GT911 ts = TAMC_GT911(TS_SDA, TS_SCL, TS_INT, TS_RST, DSP_WIDTH, DSP_HEIGHT);
+  #include "../GT911_Touchscreen/TAMC_GT911.h"
+  TAMC_GT911 ts = TAMC_GT911(TS_SDA, TS_SCL, TS_INT, TS_RST, 0, 0);
   typedef TP_Point TSPoint;
 #endif
 
@@ -54,11 +53,7 @@ void TouchScreen::init(){
 #endif
 #if TS_MODEL==TS_MODEL_GT911
   ts.begin();
-#if DSP_MODEL==DSP_NV3041A
-  ts.setRotation(config.store.fliptouch?1:3);
-#else
   ts.setRotation(config.store.fliptouch?0:2);
-#endif
 #endif
   _width  = dsp.width();
   _height = dsp.height();
@@ -94,11 +89,7 @@ void TouchScreen::flip(){
   ts.setRotation(config.store.fliptouch?3:1);
 #endif
 #if TS_MODEL==TS_MODEL_GT911
-#if DSP_MODEL==DSP_NV3041A
-  ts.setRotation(config.store.fliptouch?1:3);
-#else
   ts.setRotation(config.store.fliptouch?0:2);
-#endif
 #endif
 }
 
@@ -118,12 +109,10 @@ void TouchScreen::loop(){
     TSPoint p = ts.getPoint();
     touchX = map(p.x, TS_X_MIN, TS_X_MAX, 0, _width);
     touchY = map(p.y, TS_Y_MIN, TS_Y_MAX, 0, _height);
-    if (config.store.dbgtouch) Serial.printf("raw: %d,%d mapped: %d,%d res: %d,%d \n",p.x,p.y,touchX,touchY,_width, _height);
   #elif TS_MODEL==TS_MODEL_GT911
     TSPoint p = ts.points[0];
     touchX = p.x;
     touchY = p.y;
-    if (config.store.dbgtouch) Serial.printf("raw: %d,%d res: %d,%d \n",touchX,touchY,_width, _height);
   #endif
   if (!wastouched) { /*     START TOUCH     */
       _oldTouchX = touchX;
@@ -165,49 +154,19 @@ void TouchScreen::loop(){
             break;
       }
     }
+    if (config.store.dbgtouch) {
+      Serial.print(", x = ");
+      Serial.print(p.x);
+      Serial.print(", y = ");
+      Serial.println(p.y);
+    }
   }else{
-
-#define DSP_WIDTH_LOW (uint16_t)(DSP_WIDTH * 0.2)
-#define DSP_WIDTH_HIGH (uint16_t)(DSP_WIDTH * (1-0.2))
-#define DSP_HEIGHT_LOW (uint16_t)(DSP_HEIGHT * 0.2)
-#define DSP_HEIGHT_HIGH (uint16_t)(DSP_HEIGHT * (1-0.2))
-
     if (wastouched) {/*     END TOUCH     */
       if (direct == TDS_REQUEST) {
         uint32_t pressTicks = millis()-touchLongPress;
-        // short touch
-	if( pressTicks < BTN_PRESS_TICKS*2){
-          if(pressTicks > 50){
-#if TOUCH_BUTTONS
-	    if (config.store.dbgtouch) Serial.printf("oldTouch x: %d y: %d\n", _oldTouchX, _oldTouchY);
-	    if (config.store.dbgtouch) Serial.printf("ul: %d,%d lr: %d,%d \n", DSP_WIDTH_LOW, DSP_HEIGHT_LOW, DSP_WIDTH_HIGH, DSP_HEIGHT_HIGH);
-	    if(_oldTouchX < DSP_WIDTH_LOW && _oldTouchY < DSP_HEIGHT_LOW) {
-	      if (config.store.dbgtouch) Serial.println("upper left");
-	      onBtnDoubleClick(EVT_BTNLEFT);
-	    }
-	    if((_oldTouchX < DSP_WIDTH_LOW) && (_oldTouchY > DSP_HEIGHT_HIGH)) {
-	      if (config.store.dbgtouch) Serial.println("lower left");
-	      player.stepVol(false);
-	    }
-	    if(_oldTouchX > DSP_WIDTH_HIGH && _oldTouchY < DSP_HEIGHT_LOW){
-	      if (config.store.dbgtouch) Serial.println("upper right");
-	      onBtnDoubleClick(EVT_BTNRIGHT);
-	    }
-	    if(_oldTouchX > DSP_WIDTH_HIGH && _oldTouchY > DSP_HEIGHT_HIGH) {
-	      if (config.store.dbgtouch) Serial.println("lower right");
-	      player.stepVol(true);
-	    }
-	    if(_oldTouchX > DSP_WIDTH_LOW && _oldTouchX < DSP_WIDTH_HIGH &&
-	       _oldTouchY > DSP_HEIGHT_LOW && _oldTouchY < DSP_HEIGHT_HIGH) {
-	      if (config.store.dbgtouch) Serial.println("center");
-	      onBtnClick(EVT_BTNCENTER);
-	    }
-#else
-	      onBtnClick(EVT_BTNCENTER);
-#endif // TOUCH_BUTTONS
-	  }
-	// long touch
-	}else{
+        if( pressTicks < BTN_PRESS_TICKS*2){
+          if(pressTicks > 50) onBtnClick(EVT_BTNCENTER);
+        }else{
           display.putRequest(NEWMODE, display.mode() == PLAYER ? STATIONS : PLAYER);
         }
       }

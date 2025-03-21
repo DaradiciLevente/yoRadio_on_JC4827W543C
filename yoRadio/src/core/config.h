@@ -42,7 +42,7 @@
 #endif
 enum playMode_e      : uint8_t  { PM_WEB=0, PM_SDCARD=1 };
 enum cardStatus_e    : uint8_t  { CS_NONE=0, CS_PRESENT=1, CS_MOUNTED=2, CS_EJECTED=3 };
-enum BitrateFormat { BF_UNCNOWN, BF_MP3, BF_AAC, BF_FLAC, BF_OGG, BF_WAV, BF_OPUS, BF_VORBIS };
+enum BitrateFormat { BF_UNCNOWN, BF_MP3, BF_AAC, BF_FLAC, BF_OGG, BF_WAV };
 
 void u8fix(char *src);
 
@@ -151,24 +151,24 @@ struct neworkItem
 
 class Config {
   public:
-    config_t  store = {};
-    station_t station = {};
-    theme_t   theme = {};
+    config_t store;
+    station_t station;
+    theme_t   theme;
 #if IR_PIN!=255
     int irindex;
     uint8_t irchck;
-    ircodes_t ircodes = {};
+    ircodes_t ircodes;
 #endif
     BitrateFormat configFmt = BF_UNCNOWN;
-    neworkItem ssids[5] = {};
+    neworkItem ssids[5];
     byte ssidsCount;
-    uint16_t sleepfor = 0;
-    uint32_t sdResumePos = 0;
-    uint16_t backupLastStation = 0;
-    uint16_t backupSDStation = 0;
-    bool     sdSnuffle = false;
-    bool     emptyFS = false;
-    bool     SDinit = false;
+    uint16_t sleepfor;
+    uint32_t sdResumePos;
+    uint16_t backupLastStation;
+    uint16_t backupSDStation;
+    bool     sdSnuffle;
+    bool     emptyFS;
+    bool     SDinit;
   public:
     Config() {};
     void save();
@@ -227,12 +227,12 @@ class Config {
   private:
     template <class T> int eepromWrite(int ee, const T& value);
     template <class T> int eepromRead(int ee, T& value);
-  cardStatus_e _cardStatus = {};
-    bool _bootDone = false;
+    cardStatus_e _cardStatus;
+    bool _bootDone;
     #if RTCSUPPORTED
-    	bool _rtcFound = false;
+    	bool _rtcFound;
     #endif
-    FS* _SDplaylistFS = nullptr;
+    FS* _SDplaylistFS;
     void setDefaults();
     Ticker   _sleepTimer;
     static void doSleep();
@@ -247,7 +247,7 @@ class Config {
     void _initHW();
     bool _isFSempty();
     
-  char _stationBuf[BUFLEN/2] = {};
+    char _stationBuf[BUFLEN/2];
 };
 
 extern Config config;
