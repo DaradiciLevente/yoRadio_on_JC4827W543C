@@ -13,6 +13,9 @@ GPIO9 → DIN
 ---------------------------------
 Soon I will make a short video on my Youtube channel:
 https://www.youtube.com/@LeventeDaradici/videos
+
+Please make your own key for the weather part. OpenWeatherMap will block the key you find in the firmware, due to too many data requests.
+https://openweathermap.org/appid
 ***********************************************************
 21-03-2025
 I fixed the weather section where coordinates couldn't be saved. Now it works!
