@@ -11,6 +11,9 @@ GPIO14 → BCK
 GPIO5 → LCK
 GPIO9 → DIN
 ---------------------------------
+
+The sound is very good! It's stereo! It's PCM5102A quality!
+
 Soon I will make a short video on my Youtube channel:
 https://www.youtube.com/@LeventeDaradici/videos
 
