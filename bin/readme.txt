@@ -1,4 +1,19 @@
 ***********************************************************
+25-03-2025
+I connected an external DAC PCM5102A and compiled the binary file. It is named JC4827W543C_PCM5102.bin and can be downloaded from here: https://github.com/DaradiciLevente/yoRadio_on_JC4827W543C/blob/main/bin/JC4827W54C_PCM5102.bin
+
+The PCM5102 was connected to the JC4827W543C and was connected like this:
+JC4827W543C -- PCM5102A
+---------------------------------
+3.3V → VCC
+GND → GND
+GPIO14 → BCK
+GPIO5 → LCK
+GPIO9 → DIN
+---------------------------------
+Soon I will make a short video on my Youtube channel:
+https://www.youtube.com/@LeventeDaradici/videos
+***********************************************************
 21-03-2025
 I fixed the weather section where coordinates couldn't be saved. Now it works!
 https://github.com/DaradiciLevente/yoRadio_on_JC4827W543C/blob/main/bin/JC4827W543WeatherOK_02.bin
