@@ -17,7 +17,10 @@ The sound is very good! It's stereo! It's PCM5102A quality!
 
 Soon I will make a short video on my Youtube channel:
 https://www.youtube.com/@LeventeDaradici/videos
-
+***********************************************************
+JC4827W543C + PCM5102A the easiest touchscreen yoRadio with external DAC!
+https://youtu.be/vJsdyrAH3n0
+***********************************************************
 Please make your own key for the weather part. OpenWeatherMap will block the key you find in the firmware, due to too many data requests.
 https://openweathermap.org/appid
 ***********************************************************
