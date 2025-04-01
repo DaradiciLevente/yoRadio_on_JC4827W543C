@@ -1,5 +1,6 @@
 ***********************************************************
 25-03-2025
+***********************************************************
 I connected an external DAC PCM5102A and compiled the binary file. It is named JC4827W543C_PCM5102.bin and can be downloaded from here: https://github.com/DaradiciLevente/yoRadio_on_JC4827W543C/blob/main/bin/JC4827W54C_PCM5102.bin
 
 The PCM5102 was connected to the JC4827W543C and was connected like this:
@@ -21,6 +22,7 @@ Please make your own key for the weather part. OpenWeatherMap will block the key
 https://openweathermap.org/appid
 ***********************************************************
 21-03-2025
+***********************************************************
 I fixed the weather section where coordinates couldn't be saved. Now it works!
 https://github.com/DaradiciLevente/yoRadio_on_JC4827W543C/blob/main/bin/JC4827W543WeatherOK_02.bin
 After entering one of the coordinates, press the APPLY button, then enter the second coordinate and press APPLY again, then the DONE button.
@@ -29,6 +31,7 @@ Please make your own key for the weather part. OpenWeatherMap will block the key
 https://openweathermap.org/appid
 ***********************************************************
 04-03-2025
+***********************************************************
 Added SD card reader functionality for playing MP3 files.
 https://github.com/DaradiciLevente/yoRadio_on_JC4827W543C/blob/main/bin/JC4827W543CfirmwareSDcard2.bin
 ***********************************************************
@@ -40,3 +43,4 @@ https://youtu.be/828zJZ32_Bs
 
 Flash Download Tools can be downloaded from here:
 https://dl.espressif.com/public/flash_download_tool.zip
+***********************************************************
