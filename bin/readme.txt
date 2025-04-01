@@ -3,11 +3,16 @@
 ***********************************************************
 Added infrared sensor for remote control.
 The sensor works on pin 17.
+
 #define IR_PIN 17
+
 I used this infrared sensor model:
 https://www.aliexpress.com/item/1005005779308163.html
+
 The precompiled binary file with the added infrared sensor is called JC4827W54C_IRremote.bin
-And you can download it from here:
+
+And you can download it from here: 
+https://github.com/DaradiciLevente/yoRadio_on_JC4827W543C/blob/main/bin/JC4827W54C_IRremote.bin
 ***********************************************************
 25-03-2025
 ***********************************************************
