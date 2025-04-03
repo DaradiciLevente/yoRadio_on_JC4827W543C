@@ -43,10 +43,15 @@ The PCM5102 was connected to the JC4827W543C and was connected like this:
 JC4827W543C -- PCM5102A
 ---------------------------------
 3.3V → VCC
+
 GND → GND
+
 GPIO14 → BCK
+
 GPIO5 → LCK
+
 GPIO9 → DIN
+
 ---------------------------------
 
 The sound is very good! It's stereo! It's PCM5102A quality!
