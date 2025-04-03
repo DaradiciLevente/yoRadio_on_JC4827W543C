@@ -2,9 +2,19 @@
 02-04-2025
 ***********************************************************
 Added infrared sensor for remote control.
+
+![IMG_20250403_152844144_HDR_AE](https://github.com/user-attachments/assets/154df16c-6e46-4d13-9529-25e6eaca213f)
+
+![IMG_20250403_152228514_HDR_AE](https://github.com/user-attachments/assets/3bab8da7-2b16-40e8-a799-f509ae510dcf)
+
 The sensor works on pin 17.
 
 #define IR_PIN 17
+
+![IMG_20250403_152549508_HDR_AE](https://github.com/user-attachments/assets/733a715f-6eff-4a1f-9fa5-4c708d237941)
+
+
+![IMG_20250403_152501209_HDR_AE](https://github.com/user-attachments/assets/0b95cc90-5c3e-4ba9-afc1-92487a1b0129)
 
 I used this infrared sensor model:
 https://www.aliexpress.com/item/1005005779308163.html
