@@ -34,6 +34,8 @@ But I used a different infrared sensor, because the one that comes with the remo
 If you are using another remote control model, you will need to add it from the web interface.
 ![Screenshot 2025-04-03 154519](https://github.com/user-attachments/assets/2e67b725-98fd-43ba-b1d0-96e5a3fae242)
 
+ATTENTION! This version uses the on-board DAC!
+
 ***********************************************************
 25-03-2025
 ***********************************************************
@@ -64,6 +66,7 @@ https://youtu.be/vJsdyrAH3n0
 ***********************************************************
 Please make your own key for the weather part. OpenWeatherMap will block the key you find in the firmware, due to too many data requests.
 https://openweathermap.org/appid
+
 ***********************************************************
 21-03-2025
 ***********************************************************
@@ -73,11 +76,13 @@ After entering one of the coordinates, press the APPLY button, then enter the se
 Restart the microcontroller to display the weather data for the new coordinates entered!
 Please make your own key for the weather part. OpenWeatherMap will block the key you find in the firmware, due to too many data requests.
 https://openweathermap.org/appid
+
 ***********************************************************
 04-03-2025
 ***********************************************************
 Added SD card reader functionality for playing MP3 files.
 https://github.com/DaradiciLevente/yoRadio_on_JC4827W543C/blob/main/bin/JC4827W543CfirmwareSDcard2.bin
+
 ***********************************************************
 02-03-2025 
 ***********************************************************
