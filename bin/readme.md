@@ -30,8 +30,6 @@ If you are using this type of remote control, you will not need to add the remot
 I bought the remote control from here:
 https://www.aliexpress.com/item/32315435973.html
 But I used a different infrared sensor, because the one that comes with the remote control is not as good as the one I used.
-ATTENTION!
-If you use the IR sensor that comes with the remote control, the pinout of this sensor is different from the one I used!
 
 If you are using another remote control model, you will need to add it from the web interface.
 ![Screenshot 2025-04-03 154519](https://github.com/user-attachments/assets/2e67b725-98fd-43ba-b1d0-96e5a3fae242)
