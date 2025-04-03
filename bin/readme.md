@@ -79,8 +79,10 @@ https://openweathermap.org/appid
 Added SD card reader functionality for playing MP3 files.
 https://github.com/DaradiciLevente/yoRadio_on_JC4827W543C/blob/main/bin/JC4827W543CfirmwareSDcard2.bin
 ***********************************************************
-
-The file is the compiled firmware of yoRadio for the JC4827W543C board. It is the one with the capacitive touchscreen!
+02-03-2025 
+***********************************************************
+First precompiled binary file with yoRadio firmware for JC4827W543C board.
+It is the one with the capacitive touchscreen!
 
 You can see a short tutorial on how to upload the code to the microcontroller:
 https://youtu.be/828zJZ32_Bs
