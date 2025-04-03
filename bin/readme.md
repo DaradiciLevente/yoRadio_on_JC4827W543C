@@ -87,6 +87,9 @@ It is the one with the capacitive touchscreen!
 You can see a short tutorial on how to upload the code to the microcontroller:
 https://youtu.be/828zJZ32_Bs
 
+You can download the binary file from here:
+https://github.com/DaradiciLevente/yoRadio_on_JC4827W543C/blob/main/bin/yoradio_flash.bin
+
 Flash Download Tools can be downloaded from here:
 https://dl.espressif.com/public/flash_download_tool.zip
 ***********************************************************
