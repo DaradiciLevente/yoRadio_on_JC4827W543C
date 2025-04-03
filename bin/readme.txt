@@ -14,7 +14,7 @@ The precompiled binary file with the added infrared sensor is called JC4827W54C_
 And you can download it from here: 
 https://github.com/DaradiciLevente/yoRadio_on_JC4827W543C/blob/main/bin/JC4827W54C_IRremote.bin
 
-[img]https://i.imgur.com/SJY2cl8.jpeg[/img]
+<blockquote class="imgur-embed-pub" lang="en" data-id="a/oZVIrk6" data-context="false" ><a href="//imgur.com/a/oZVIrk6"></a></blockquote><script async src="//s.imgur.com/min/embed.js" charset="utf-8"></script>
 ***********************************************************
 25-03-2025
 ***********************************************************
