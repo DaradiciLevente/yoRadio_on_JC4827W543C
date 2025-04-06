@@ -13,6 +13,7 @@ The remote control sensor remained on pin: 17
 #define IR_PIN 17
 
 The external DAC was connected like this:
+
 /* I2S DAC */
 
 #define I2S_DOUT 9
