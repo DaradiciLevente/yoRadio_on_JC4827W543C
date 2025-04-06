@@ -22,6 +22,9 @@ The external DAC was connected like this:
 
 #define I2S_LRC 5
 
+Here you can see a video on how to load the precompiled binary file into the microcontroller:
+https://youtu.be/828zJZ32_Bs
+
 ***********************************************************
 02-04-2025
 ***********************************************************
