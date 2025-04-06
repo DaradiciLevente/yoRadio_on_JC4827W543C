@@ -9,13 +9,18 @@ And can be downloaded from here:
 https://github.com/DaradiciLevente/yoRadio_on_JC4827W543C/blob/main/bin/JC4827W54C_IRremote_i2sDAC.bin
 
 The remote control sensor remained on pin: 17
+
 #define IR_PIN 17
 
 The external DAC was connected like this:
 /* I2S DAC */
+
 #define I2S_DOUT 9
+
 #define I2S_BCLK 14
+
 #define I2S_LRC 5
+
 ***********************************************************
 02-04-2025
 ***********************************************************
