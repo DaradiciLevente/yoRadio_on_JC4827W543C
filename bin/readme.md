@@ -1,4 +1,17 @@
 ***********************************************************
+06-04-2025
+***********************************************************
+I added a precompiled binary with an infrared sensor for the remote control and an external i2s DAC. I used the PCM5102A.
+
+The remote control sensor remained on pin: 17
+#define IR_PIN 17
+
+The external DAC was connected like this:
+/* I2S DAC */
+#define I2S_DOUT 9
+#define I2S_BCLK 14
+#define I2S_LRC 5
+***********************************************************
 02-04-2025
 ***********************************************************
 Added infrared sensor for remote control.
