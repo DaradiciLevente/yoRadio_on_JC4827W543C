@@ -4,8 +4,11 @@
 I added a precompiled binary with an infrared sensor for the remote control and an external i2s DAC. I used the PCM5102A.
 
 The binary file is called:
+
 JC4827W54C_IRremote_i2sDAC.bin
+
 And can be downloaded from here:
+
 https://github.com/DaradiciLevente/yoRadio_on_JC4827W543C/blob/main/bin/JC4827W54C_IRremote_i2sDAC.bin
 
 The remote control sensor remained on pin: 17
