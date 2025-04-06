@@ -11,8 +11,10 @@ and
 
 JC4828W5432_IR_i2sDAC
 
+https://github.com/DaradiciLevente/yoRadio_on_JC4827W543C/blob/main/bin/JC4827W54C_IRremote_i2sDAC_HUNGARIAN.bin
 
 The Hungarian translation is not complete.
+
 There are still issues to be resolved.
 
 ***********************************************************
