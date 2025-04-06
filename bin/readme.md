@@ -1,5 +1,16 @@
 ***********************************************************
-06-04-2025
+06-04-2025 mod_2
+***********************************************************
+Hungarian version added for
+JC4827W543C_IR
+and
+JC4828W5432_IR_i2sDAC
+
+The Hungarian translation is not complete.
+There are still issues to be resolved.
+
+***********************************************************
+06-04-2025 mod_1
 ***********************************************************
 I added a precompiled binary with an infrared sensor for the remote control and an external i2s DAC. I used the PCM5102A.
 
